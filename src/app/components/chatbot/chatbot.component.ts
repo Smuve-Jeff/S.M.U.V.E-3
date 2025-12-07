@@ -66,7 +66,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     this.initializeSpeechRecognition();
     effect(() => {
       if (!this.isAiAvailable()) {
-        this.messages.set([{ role: 'model', content: 'AI services are unavailable. API key may be invalid.' }]);
+        this.messages.set([{ role: 'model', content: 'S.M.U.V.E. systems offline. Connection to the core severed. Verify your access credentials.' }]);
       }
     }, { allowSignalWrites: true });
     effect(() => {
@@ -92,7 +92,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.messages.set([{ role: 'model', content: "S.M.U.V.E. online. What are we creating today?" }]);
+    this.messages.set([{ role: 'model', content: "S.M.U.V.E. online. I see everything. What is your request?" }]);
   }
 
   ngOnDestroy() {

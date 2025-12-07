@@ -1,10 +1,10 @@
 import { Component, ChangeDetectionStrategy, signal, output, ElementRef, viewChild, input, inject, computed, effect, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AiService, GenerateContentResponse, Content, Type, Tool } from '../services/ai.service';
+import { AiService, GenerateContentResponse, Content, Type, Tool } from '../../services/ai.service';
 // FIX: Update AppTheme and Track imports to break circular dependency
-import { AppTheme, Track, UserContextService } from '../services/user-context.service';
-import { UserProfileService } from '../services/user-profile.service';
+import { AppTheme, Track, UserContextService } from '../../services/user-context.service';
+import { UserProfileService } from '../../services/user-profile.service';
 
 // Type declarations for browser APIs
 declare global {

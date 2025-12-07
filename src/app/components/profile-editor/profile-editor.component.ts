@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy, inject, signal, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // FIX: Update AppTheme import to break circular dependency
-import { AppTheme } from '../services/user-context.service';
-import { UserProfileService, UserProfile } from '../services/user-profile.service';
+import { AppTheme } from '../../services/user-context.service';
+import { UserProfileService, UserProfile } from '../../services/user-profile.service';
 
 @Component({
   selector: 'app-profile-editor',

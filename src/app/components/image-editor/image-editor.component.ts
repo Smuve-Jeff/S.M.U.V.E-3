@@ -1,9 +1,9 @@
 import { Component, ChangeDetectionStrategy, signal, ElementRef, viewChild, output, input, effect, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AiService, GenerateImagesResponse } from '../services/ai.service';
+import { AiService, GenerateImagesResponse } from '../../services/ai.service';
 // FIX: Update AppTheme import to break circular dependency
-import { AppTheme } from '../services/user-context.service';
+import { AppTheme } from '../../services/user-context.service';
 
 @Component({
   selector: 'app-image-editor',

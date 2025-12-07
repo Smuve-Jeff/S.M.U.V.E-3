@@ -1,15 +1,15 @@
 
 import { Component, ChangeDetectionStrategy, signal, ElementRef, viewChild, effect, OnDestroy, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EqPanelComponent } from './eq-panel/eq-panel.component';
-import { MatrixBackgroundComponent } from './matrix-background/matrix-background.component';
-import { ChatbotComponent } from './chatbot/chatbot.component';
-import { ImageEditorComponent } from './image-editor/image-editor.component';
-import { VideoEditorComponent } from './video-editor/video-editor.component';
-import { AudioVisualizerComponent } from './audio-visualizer/audio-visualizer.component';
-import { PianoRollComponent } from './piano-roll/piano-roll.component';
-import { NetworkingComponent, ArtistProfile, MOCK_ARTISTS } from './networking/networking.component';
-import { ProfileEditorComponent } from './profile-editor/profile-editor.component';
+import { EqPanelComponent } from './components/eq-panel/eq-panel.component';
+import { MatrixBackgroundComponent } from './components/matrix-background/matrix-background.component';
+import { ChatbotComponent } from './components/chatbot/chatbot.component';
+import { ImageEditorComponent } from './components/image-editor/image-editor.component';
+import { VideoEditorComponent } from './components/video-editor/video-editor.component';
+import { AudioVisualizerComponent } from './components/audio-visualizer/audio-visualizer.component';
+import { PianoRollComponent } from './components/piano-roll/piano-roll.component';
+import { NetworkingComponent, ArtistProfile, MOCK_ARTISTS } from './components/networking/networking.component';
+import { ProfileEditorComponent } from './components/profile-editor/profile-editor.component';
 import { AiService } from './services/ai.service';
 // FIX: Import AppTheme and shared types from UserContextService to break circular dependency which caused injection errors.
 import { UserContextService, AppTheme, Track, EqBand, Enhancements, DeckState, initialDeckState } from './services/user-context.service';

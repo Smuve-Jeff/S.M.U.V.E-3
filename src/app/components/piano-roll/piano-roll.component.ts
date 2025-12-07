@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, signal, OnDestroy, AfterViewInit, input, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // FIX: Update AppTheme import to break circular dependency
-import { AppTheme } from '../services/user-context.service';
+import { AppTheme } from '../../services/user-context.service';
 
 const BASE_OCTAVE = 3;
 const NUMBER_OF_OCTAVES = 2;

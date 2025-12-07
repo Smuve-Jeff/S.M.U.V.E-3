@@ -2,8 +2,8 @@ import { Component, ChangeDetectionStrategy, input, signal, computed, inject, ef
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 // FIX: Update AppTheme import to break circular dependency
-import { AppTheme } from '../services/user-context.service';
-import { AiService, GenerateContentResponse, Type } from '../services/ai.service';
+import { AppTheme } from '../../services/user-context.service';
+import { AiService, GenerateContentResponse, Type } from '../../services/ai.service';
 
 export interface ArtistProfile {
   id: string; name: string; genre: string; location: string; bio: string; contact: string; imageUrl: string;

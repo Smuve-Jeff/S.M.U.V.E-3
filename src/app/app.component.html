@@ -5,7 +5,7 @@
   <div class="w-full max-w-7xl border-2 bg-black/80 backdrop-blur-sm z-10 flex flex-col transition-colors duration-500" [class]="mainBorderClass()">
     <!-- Header -->
     <header class="flex justify-between items-center p-2 sm:p-4 border-b-2 border-inherit">
-      <h1 class="text-xl sm:text-2xl" [class]="mainTextColorClass()">[ AURA ]</h1>
+      <h1 class="text-xl sm:text-2xl" [class]="mainTextColorClass()">[ Smuve Jeff Presents ]</h1>
       <div class="flex items-center gap-2">
         <button (click)="mainViewMode.set('profile')" class="p-2 border hover:text-black text-sm" [class]="mainBorderClass()" [class]="mainHoverBgClass()">[ PROFILE ]</button>
         <button (click)="randomizeTheme()" class="p-2 border hover:text-black text-sm" [class]="mainBorderClass()" [class]="mainHoverBgClass()">[ RND THM ]</button>
@@ -98,6 +98,32 @@
                   <span>VOL:</span>
                   <input type="range" min="0" max="1" step="0.01" [value]="volume()" (input)="onVolumeChange($event)">
                 </div>
+
+                <!-- Advanced Audio Controls -->
+                 <div class="border p-2 w-full flex flex-wrap gap-2 justify-center" [class]="mainBorderClass()">
+                    <h4 class="w-full text-center text-xs opacity-75 mb-2">[ STUDIO TOOLS ]</h4>
+                    <button class="p-2 border text-xs flex items-center gap-1" [class.bg-red-900]="phantomPower()" (click)="phantomPower.set(!phantomPower())">
+                       [ +48V PHANTOM ]
+                    </button>
+                    <button class="p-2 border text-xs flex items-center gap-1" [class.bg-green-900]="midiEnabled()" (click)="midiEnabled.set(!midiEnabled())">
+                       [ MIDI ]
+                    </button>
+                    <button class="p-2 border text-xs flex items-center gap-1" [class.bg-blue-900]="noiseReduction()" (click)="noiseReduction.set(!noiseReduction())">
+                       [ NOISE GATE ]
+                    </button>
+                     <button class="p-2 border text-xs flex items-center gap-1" [class.bg-yellow-900]="limiter()" (click)="limiter.set(!limiter())">
+                       [ LIMITER ]
+                    </button>
+                     <button class="p-2 border text-xs flex items-center gap-1" [class.bg-purple-900]="autoTune()" (click)="autoTune.set(!autoTune())">
+                       [ AUTO-TUNE ]
+                    </button>
+                    <div class="flex items-center gap-1 border p-1">
+                        <span class="text-xs">RENDER:</span>
+                        <button class="text-xs px-1" [class.bg-white]="renderFormat() === 'wav'" [class.text-black]="renderFormat() === 'wav'" (click)="renderFormat.set('wav')">WAV</button>
+                        <button class="text-xs px-1" [class.bg-white]="renderFormat() === 'mp3'" [class.text-black]="renderFormat() === 'mp3'" (click)="renderFormat.set('mp3')">MP3</button>
+                    </div>
+                 </div>
+
               </div>
             </div>
             <!-- Right Panel: Playlist -->

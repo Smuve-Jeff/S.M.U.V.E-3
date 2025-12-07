@@ -83,6 +83,15 @@ export class AppComponent implements OnDestroy {
   vuBars = Array(12).fill(0);
   micEnabled = signal(false); micVolume = signal(50); micEqHigh = signal(50);
   micEqMid = signal(50); micEqLow = signal(50); micFilterFreq = signal(20000);
+
+  // New Audio Features
+  phantomPower = signal(false);
+  midiEnabled = signal(false);
+  noiseReduction = signal(false);
+  limiter = signal(false);
+  autoTune = signal(false);
+  renderFormat = signal<'mp3' | 'wav'>('wav');
+
   readonly THEMES = THEMES;
   currentTheme = signal<AppTheme>(THEMES[0]);
   mainBorderClass = computed(() => `border-${this.currentTheme().primary}-400/50`);
@@ -131,6 +140,31 @@ export class AppComponent implements OnDestroy {
     effect(() => this.userContext.setMainViewMode(this.mainViewMode()));
     // FIX: These calls are now valid as userContext is correctly typed.
     effect(() => this.userContext.setTheme(this.currentTheme()));
+
+    // Effects for Studio Tools (Mock Implementation)
+    effect(() => {
+        if (this.phantomPower()) console.log('[Studio] +48V Phantom Power: ENGAGED');
+        else console.log('[Studio] +48V Phantom Power: DISENGAGED');
+    });
+    effect(() => {
+        if (this.midiEnabled()) console.log('[Studio] MIDI Interface: ACTIVE');
+        else console.log('[Studio] MIDI Interface: DISABLED');
+    });
+    effect(() => {
+        if (this.noiseReduction()) console.log('[Studio] Noise Gate: ENGAGED (Threshold: -40dB)');
+        else console.log('[Studio] Noise Gate: BYPASSED');
+    });
+    effect(() => {
+        if (this.limiter()) console.log('[Studio] Brickwall Limiter: ENGAGED (Ceiling: -0.1dB)');
+        else console.log('[Studio] Brickwall Limiter: BYPASSED');
+    });
+    effect(() => {
+        if (this.autoTune()) console.log('[Studio] Pitch Correction: ACTIVE (Retune Speed: 20ms)');
+        else console.log('[Studio] Pitch Correction: BYPASSED');
+    });
+    effect(() => {
+       console.log(`[Studio] Render Format set to: ${this.renderFormat().toUpperCase()}`);
+    });
 
     // Effect to handle track changes in player mode
     effect(() => {

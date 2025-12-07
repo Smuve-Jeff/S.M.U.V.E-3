@@ -19,7 +19,7 @@ export class MatrixBackgroundComponent implements AfterViewInit, OnDestroy {
   private rainDrops: number[] = [];
   private columns = 0;
   private fontSize = 16;
-  private alphabet = 'AURA AI MUSIC SMUVE';
+  private alphabet = 'SMUVE JEFF PRESENTS AI MUSIC SMUVE';
 
   ngAfterViewInit(): void {
     const canvas = this.canvasRef().nativeElement;

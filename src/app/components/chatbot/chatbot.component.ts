@@ -327,7 +327,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     const profile = this.userProfileService.profile();
 
     if (profile.artistName === 'New Artist' && mode !== 'profile') {
-        advice = "Welcome to AURA! I see you're new here. I recommend starting by filling out your Artist Profile. It will help me give you the best, personalized advice on your musical journey. Just click the [PROFILE] button in the header.";
+        advice = "Welcome to Smuve Jeff Presents! I see you're new here. I recommend starting by filling out your Artist Profile. It will help me give you the best, personalized advice on your musical journey. Just click the [PROFILE] button in the header.";
     } else {
         switch(mode) {
             case 'image-editor':

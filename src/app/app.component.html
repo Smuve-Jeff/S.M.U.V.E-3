@@ -2,35 +2,43 @@
 <main class="bg-black text-green-400 font-mono min-h-screen flex items-center justify-center p-2 sm:p-4 relative overflow-hidden">
   <app-matrix-background></app-matrix-background>
 
-  <div class="w-full max-w-7xl border-2 bg-black/80 backdrop-blur-sm z-10 flex flex-col transition-colors duration-500" [class]="mainBorderClass()">
-    <!-- Header -->
-    <header class="flex justify-between items-center p-2 sm:p-4 border-b-2 border-inherit">
-      <h1 class="text-xl sm:text-2xl" [class]="mainTextColorClass()">[ Smuve Jeff Presents ]</h1>
-      <div class="flex items-center gap-2">
-        <button (click)="mainViewMode.set('profile')" class="p-2 border hover:text-black text-sm" [class]="mainBorderClass()" [class]="mainHoverBgClass()">[ PROFILE ]</button>
-        <button (click)="randomizeTheme()" class="p-2 border hover:text-black text-sm" [class]="mainBorderClass()" [class]="mainHoverBgClass()">[ RND THM ]</button>
-        <button (click)="toggleMainViewMode()" class="p-2 border hover:text-black text-sm" [class]="mainBorderClass()" [class]="mainHoverBgClass()">
-          @if (mainViewMode() === 'player') { <span>[ DJ ]</span> }
-          @else if (mainViewMode() === 'dj') { <span>[ PIANO ]</span> }
-          @else if (mainViewMode() === 'piano-roll') { <span>[ IMG ]</span> }
-          @else if (mainViewMode() === 'image-editor') { <span>[ VID ]</span> }
-          @else if (mainViewMode() === 'video-editor') { <span>[ NET ]</span> }
-          @else if (mainViewMode() === 'networking') { <span>[ PLAYER ]</span> }
-          @else { <span>[ PLAYER ]</span> }
-        </button>
-        <button (click)="toggleChatbot()" class="p-2 border hover:text-black text-sm" [class]="mainBorderClass()" [class]="mainHoverBgClass()">
-          @if (showChatbot()) { <span>[ CHAT OFF ]</span> } @else { <span>[ CHAT ON ]</span> }
-        </button>
-      </div>
-    </header>
+  @if (mainViewMode() === 'gaming') {
+    <app-hub-dashboard></app-hub-dashboard>
+    <!-- Add a floating exit button for gaming mode since it covers the screen -->
+    <button (click)="mainViewMode.set('player')" class="fixed bottom-4 right-4 z-[10000] p-2 bg-black border border-white text-white hover:bg-white hover:text-black font-mono">
+      [ EXIT HUB ]
+    </button>
+  } @else {
+    <div class="w-full max-w-7xl border-2 bg-black/80 backdrop-blur-sm z-10 flex flex-col transition-colors duration-500" [class]="mainBorderClass()">
+      <!-- Header -->
+      <header class="flex justify-between items-center p-2 sm:p-4 border-b-2 border-inherit">
+        <h1 class="text-xl sm:text-2xl" [class]="mainTextColorClass()">[ Smuve Jeff Presents ]</h1>
+        <div class="flex items-center gap-2">
+          <button (click)="enterHub()" class="p-2 border hover:text-black text-sm" [class]="mainBorderClass()" [class]="mainHoverBgClass()">[ HUB ]</button>
+          <button (click)="mainViewMode.set('profile')" class="p-2 border hover:text-black text-sm" [class]="mainBorderClass()" [class]="mainHoverBgClass()">[ PROFILE ]</button>
+          <button (click)="randomizeTheme()" class="p-2 border hover:text-black text-sm" [class]="mainBorderClass()" [class]="mainHoverBgClass()">[ RND THM ]</button>
+          <button (click)="toggleMainViewMode()" class="p-2 border hover:text-black text-sm" [class]="mainBorderClass()" [class]="mainHoverBgClass()">
+            @if (mainViewMode() === 'player') { <span>[ DJ ]</span> }
+            @else if (mainViewMode() === 'dj') { <span>[ PIANO ]</span> }
+            @else if (mainViewMode() === 'piano-roll') { <span>[ IMG ]</span> }
+            @else if (mainViewMode() === 'image-editor') { <span>[ VID ]</span> }
+            @else if (mainViewMode() === 'video-editor') { <span>[ NET ]</span> }
+            @else if (mainViewMode() === 'networking') { <span>[ PLAYER ]</span> }
+            @else { <span>[ PLAYER ]</span> }
+          </button>
+          <button (click)="toggleChatbot()" class="p-2 border hover:text-black text-sm" [class]="mainBorderClass()" [class]="mainHoverBgClass()">
+            @if (showChatbot()) { <span>[ CHAT OFF ]</span> } @else { <span>[ CHAT ON ]</span> }
+          </button>
+        </div>
+      </header>
 
-    <!-- Main Content Area -->
-    <div class="p-2 sm:p-4">
-      <audio #mainAudioPlayer (timeupdate)="onTimeUpdate()" (loadedmetadata)="onLoadedMetadata()" (ended)="onTrackEnded()"></audio>
-      <input type="file" #fileInput (change)="handleFiles($event)" multiple accept="audio/*" class="hidden">
+      <!-- Main Content Area -->
+      <div class="p-2 sm:p-4">
+        <audio #mainAudioPlayer (timeupdate)="onTimeUpdate()" (loadedmetadata)="onLoadedMetadata()" (ended)="onTrackEnded()"></audio>
+        <input type="file" #fileInput (change)="handleFiles($event)" multiple accept="audio/*" class="hidden">
 
-      @switch (mainViewMode()) {
-        @case ('dj') {
+        @switch (mainViewMode()) {
+          @case ('dj') {
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <!-- DECK A -->
             <div class="border p-2 flex flex-col gap-2" [class]="djBorderClass()">
@@ -139,9 +147,10 @@
             </div>
           </div>
         }
-      }
+        }
+      </div>
     </div>
-  </div>
+  }
 
   <!-- Chatbot -->
   @if (showChatbot()) {

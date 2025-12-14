@@ -1,0 +1,112 @@
+<div class="tha-spot-container">
+    <div class="app-shell">
+      <!-- SIDEBAR NAV -->
+      <nav class="side-nav">
+        <div class="logo-area">
+          <i class="fa-solid fa-bolt logo-icon"></i>
+        </div>
+
+        <div class="nav-links">
+          <div class="nav-item active"><i class="fa-solid fa-house"></i></div>
+          <div class="nav-item"><i class="fa-solid fa-gamepad"></i></div>
+          <div class="nav-item"><i class="fa-solid fa-trophy"></i></div>
+          <div class="nav-item"><i class="fa-solid fa-user-group"></i></div>
+        </div>
+
+        <div class="settings-area">
+          <div class="nav-item"><i class="fa-solid fa-gear"></i></div>
+          <div class="profile-pic">
+            <img src="https://api.dicebear.com/6.x/avataaars/svg?seed=Felix" alt="User">
+          </div>
+        </div>
+      </nav>
+
+      <!-- MAIN CONTENT -->
+      <main class="content-area">
+        <!-- GAME OVERLAY (IMMERSIVE PLAYER) -->
+        <div *ngIf="activeGame" class="overlay-container">
+          <div class="glass-header">
+            <div class="header-left">
+              <span class="live-indicator">● LIVE</span>
+              <h2>{{activeGame.title}}</h2>
+            </div>
+
+            <div class="header-controls">
+               <!-- Visual IQ Upgrade -->
+               <div class="visual-iq-box">
+                 <i class="fa-solid fa-eye"></i>
+                 <select (change)="setFilter($event)" class="iq-select">
+                    <option value="none">Standard Res</option>
+                    <option value="hdr">HDR Boost</option>
+                    <option value="crt">Retro CRT</option>
+                    <option value="noir">Sin City Mode</option>
+                 </select>
+               </div>
+
+               <button (click)="closeGame()" class="close-btn"><i class="fa-solid fa-xmark"></i> ESC</button>
+            </div>
+          </div>
+
+          <!-- The Game Viewport -->
+          <div class="viewport" [ngClass]="currentFilter">
+            <iframe [src]="safeUrl" allowfullscreen></iframe>
+            <div class="scanlines" *ngIf="currentFilter === 'crt'"></div>
+          </div>
+        </div>
+
+        <!-- MAIN DASHBOARD (SCROLLABLE) -->
+        <div class="dashboard-scroll" [class.blurred]="activeGame">
+
+          <!-- HEADER -->
+          <header class="hub-header">
+            <div class="welcome-text">
+              <h1>THA SPOT <span class="version">HUB</span></h1>
+              <p>Next-Gen Browser Gaming Architecture</p>
+            </div>
+            <div class="search-bar">
+              <i class="fa-solid fa-search"></i>
+              <input type="text" placeholder="Search library...">
+            </div>
+          </header>
+
+          <!-- FEATURED HERO -->
+          <section class="hero-banner">
+            <div class="hero-content">
+              <span class="badge">MULTIPLAYER EVENT</span>
+              <h1>VELOREN RPG</h1>
+              <p>Join the open-world voxel adventure. Explore dungeons, craft items, and team up.</p>
+              <button class="btn-neon" (click)="launchSpecific('veloren')"><i class="fa-solid fa-play"></i> ENTER WORLD</button>
+            </div>
+          </section>
+
+          <!-- CATEGORY TABS -->
+          <div class="category-tabs">
+            <button [class.active]="activeTab === 'All'" (click)="activeTab = 'All'">All Games</button>
+            <button [class.active]="activeTab === 'Multiplayer'" (click)="activeTab = 'Multiplayer'">Multiplayer</button>
+            <button [class.active]="activeTab === 'Retro'" (click)="activeTab = 'Retro'">Classics</button>
+            <button [class.active]="activeTab === 'Tabletop'" (click)="activeTab = 'Tabletop'">Strategy</button>
+          </div>
+
+          <!-- GAME GRID -->
+          <div class="game-grid">
+            <div *ngFor="let game of getGames()" class="game-card" (click)="launchGame(game)">
+              <div class="card-thumb" [style.background-image]="'url(' + game.image + ')'">
+                <div class="hover-overlay">
+                  <i class="fa-solid fa-play"></i>
+                </div>
+              </div>
+              <div class="card-details">
+                <h3>{{game.title}}</h3>
+                <div class="meta-row">
+                  <span class="tag" [ngClass]="game.mode">{{game.mode}}</span>
+                  <span class="rating"><i class="fa-solid fa-star"></i> {{game.rating}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="height: 100px;"></div> <!-- Spacer -->
+        </div>
+      </main>
+    </div>
+</div>

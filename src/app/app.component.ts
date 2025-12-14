@@ -126,7 +126,7 @@ export class AppComponent implements OnDestroy {
   private vuIntervalId?: number;
   private aiService = inject(AiService);
   // FIX: userContext is now correctly typed as UserContextService, fixing the errors on property access.
-  private userContext = inject(UserContextService);
+  private userContext: UserContextService = inject(UserContextService);
   private userProfileService = inject(UserProfileService); // Initialize profile service
 
   constructor() {

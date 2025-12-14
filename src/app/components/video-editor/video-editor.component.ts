@@ -29,7 +29,6 @@ export class VideoEditorComponent implements OnDestroy {
   error = signal<string | null>(null);
 
   private aiService = inject(AiService);
-  // FIX: A computed signal's value must be read by calling it as a function.
   isAiAvailable = computed(() => this.aiService.isAiAvailable());
   liveVideoPreviewRef = viewChild<ElementRef<HTMLVideoElement>>('liveVideoPreview');
 

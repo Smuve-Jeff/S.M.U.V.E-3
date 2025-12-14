@@ -1,6 +1,5 @@
 import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// FIX: Update AppTheme import to break circular dependency
 import { AppTheme, EqBand, Enhancements } from '../../services/user-context.service';
 
 @Component({

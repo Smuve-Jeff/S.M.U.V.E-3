@@ -24,7 +24,7 @@ export const initialProfile: UserProfile = {
   links: {},
 };
 
-const USER_PROFILE_STORAGE_KEY = 'aura_user_profile';
+const USER_PROFILE_STORAGE_KEY = 'smuve_user_profile';
 
 @Injectable({
   providedIn: 'root'

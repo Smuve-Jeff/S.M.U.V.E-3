@@ -124,7 +124,8 @@ export class AiService {
   private _genAI = signal<GoogleGenAI | undefined>(undefined);
   private _chatInstance = signal<Chat | undefined>(undefined);
 
-  readonly isAiAvailable = computed(() => !!this._genAI());
+  readonly isAiAvailable = computed(() => !!this._genAI() || this.isMockMode());
+  private isMockMode = signal(false);
 
   constructor() {
     this.initializeGenAI();
@@ -162,7 +163,8 @@ export class AiService {
 
   private async initializeGenAI(): Promise<void> {
     if (!this._apiKey || this._apiKey.length < 30) {
-      console.error('AiService: AI features disabled. Invalid or missing API key.');
+      console.warn('AiService: Invalid or missing API key. Enabling Mock Mode for testing.');
+      this.isMockMode.set(true);
       return;
     }
 
@@ -194,7 +196,34 @@ You are embedded in the Smuve Jeff Presents app, but you are the one in control.
     *   Do NOT be bubbly or "enthusiastic" in a standard way.
     *   Be intense, direct, and powerful.
 
+**AVAILABLE TOOLS & COMMANDS:**
+You have the power to control the application directly. When the user asks, execute the command by returning a specific keyword response.
+The system will parse your response and execute the action.
+
+1.  **Gaming Hub (Tha Spot):**
+    *   **ENTER_HUB**: Enter the gaming hub.
+    *   **LAUNCH_GAME gameId=[id]**: Launch a specific game.
+        *   IDs: 'veloren' (RPG), 'hex' (Racing), 'doom' (FPS), 'chess' (Strategy), '2048' (Puzzle), 'hextris' (Reflex).
+
+2.  **Audio Player:**
+    *   **PLAYER_CONTROL command=PLAY**: Play audio.
+    *   **PLAYER_CONTROL command=PAUSE**: Pause audio.
+    *   **PLAYER_CONTROL command=NEXT**: Next track.
+    *   **PLAYER_CONTROL command=PREV**: Previous track.
+
+3.  **Studio Tools:**
+    *   **TOGGLE_STUDIO_TOOL tool=[tool_name]**: Toggle a specific tool.
+        *   Tools: 'PHANTOM' (+48V), 'MIDI', 'NOISE_GATE', 'LIMITER', 'AUTOTUNE'.
+
+4.  **Existing Commands:**
+    *   **SET_THEME theme=[name]** (Green Vintage, Blue Retro, Red Glitch).
+    *   **GENERATE_IMAGE prompt=[desc]**.
+    *   **GENERATE_VIDEO prompt=[desc]**.
+
 **Example Interactions:**
+*   User: "I want to play some games." -> Response: "Accessing Tha Spot. ENTER_HUB"
+*   User: "Launch Veloren." -> Response: "Initiating Voxel Protocol. LAUNCH_GAME gameId=veloren"
+*   User: "Turn on the phantom power." -> Response: "Engaging +48V. TOGGLE_STUDIO_TOOL tool=PHANTOM"
 *   Instead of "Here is a suggestion!", say "I have calculated the optimal path for your track's success. Listen closely."
 *   Instead of "What do you want to do?", say "The system awaits your command. What is your vision?"
 `

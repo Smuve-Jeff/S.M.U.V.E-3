@@ -1,3 +1,4 @@
+import { Component, effect, input } from '@angular/core';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +13,8 @@ import { Game } from './game.model';
   styleUrls: ['./hub-dashboard.component.css']
 })
 export class HubDashboardComponent {
+  autoLaunchGameId = input<string | null>(null);
+
   activeTab: string = 'All';
   activeGame: Game | null = null;
   safeUrl: SafeResourceUrl | null = null;

@@ -139,7 +139,8 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     const KNOWN_COMMANDS = [
         'SEARCH', 'DEEP', 'TRANSCRIBE', 'MAP', 'FIND_ON_MAP',
         'SET_THEME', 'GENERATE_IMAGE', 'GENERATE_VIDEO', 'ANALYZE_IMAGE',
-        'ANALYZE_VIDEO', 'FIND_ARTISTS', 'VIEW_ARTIST_PROFILE'
+        'ANALYZE_VIDEO', 'FIND_ARTISTS', 'VIEW_ARTIST_PROFILE',
+        'ENTER_HUB', 'LAUNCH_GAME', 'PLAYER_CONTROL', 'TOGGLE_STUDIO_TOOL'
     ];
 
     if (KNOWN_COMMANDS.includes(firstWord)) {

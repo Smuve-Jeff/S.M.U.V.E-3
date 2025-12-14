@@ -116,6 +116,7 @@ export class AppComponent implements OnDestroy {
   networkingLocationQuery = signal<string | null>(null);
   selectedArtistProfile = signal<ArtistProfile | null>(null);
   showArtistDetailModal = signal(false);
+  gameToLaunch = signal<string | null>(null);
 
   private scratchStateA: ScratchState = { active: false, lastAngle: 0, platterElement: null };
   private scratchStateB: ScratchState = { active: false, lastAngle: 0, platterElement: null };
@@ -316,6 +317,30 @@ export class AppComponent implements OnDestroy {
           this.mainViewMode.set('networking');
         }
         break;
+      case 'ENTER_HUB': this.enterHub(); break;
+      case 'LAUNCH_GAME':
+        this.enterHub();
+        this.gameToLaunch.set(parameters.gameId);
+        break;
+      case 'PLAYER_CONTROL':
+        if (parameters.command === 'PLAY') {
+            if (!this.isPlaying()) this.togglePlay();
+        } else if (parameters.command === 'PAUSE') {
+            if (this.isPlaying()) this.togglePlay();
+        } else if (parameters.command === 'NEXT') {
+            this.playNext();
+        } else if (parameters.command === 'PREV') {
+            this.playPrevious();
+        }
+        break;
+      case 'TOGGLE_STUDIO_TOOL':
+          const tool = parameters.tool?.toUpperCase();
+          if (tool === 'PHANTOM') this.phantomPower.update(v => !v);
+          if (tool === 'MIDI') this.midiEnabled.update(v => !v);
+          if (tool === 'NOISE_GATE') this.noiseReduction.update(v => !v);
+          if (tool === 'LIMITER') this.limiter.update(v => !v);
+          if (tool === 'AUTOTUNE') this.autoTune.update(v => !v);
+          break;
     }
   }
 

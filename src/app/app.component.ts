@@ -11,7 +11,6 @@ import { PianoRollComponent } from './components/piano-roll/piano-roll.component
 import { NetworkingComponent, ArtistProfile, MOCK_ARTISTS } from './components/networking/networking.component';
 import { ProfileEditorComponent } from './components/profile-editor/profile-editor.component';
 import { AiService } from './services/ai.service';
-// FIX: Import AppTheme and shared types from UserContextService to break circular dependency which caused injection errors.
 import { UserContextService, AppTheme, Track, EqBand, Enhancements, DeckState, initialDeckState } from './services/user-context.service';
 import { UserProfileService } from './services/user-profile.service';
 
@@ -125,7 +124,6 @@ export class AppComponent implements OnDestroy {
   private destinationNode!: MediaStreamAudioDestinationNode;
   private vuIntervalId?: number;
   private aiService = inject(AiService);
-  // FIX: userContext is now correctly typed as UserContextService, fixing the errors on property access.
   private userContext = inject(UserContextService);
   private userProfileService = inject(UserProfileService); // Initialize profile service
 
@@ -136,9 +134,7 @@ export class AppComponent implements OnDestroy {
     effect(() => { if (this.mapLocationResult()) this.showMapResultsModal.set(true); });
     effect(() => { if (this.selectedArtistProfile()) this.showArtistDetailModal.set(true); });
 
-    // FIX: These calls are now valid as userContext is correctly typed.
     effect(() => this.userContext.setMainViewMode(this.mainViewMode()));
-    // FIX: These calls are now valid as userContext is correctly typed.
     effect(() => this.userContext.setTheme(this.currentTheme()));
 
     // Effects for Studio Tools (Mock Implementation)
@@ -321,7 +317,6 @@ export class AppComponent implements OnDestroy {
 
   handleImageGenerated(imageUrl: string): void {
     this.lastImageEditorImageUrl.set(imageUrl);
-    // FIX: This call is now valid as userContext is correctly typed.
     this.userContext.setLastImageUrl(imageUrl);
   }
 

@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, signal, ElementRef, viewChild, outp
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AiService, GenerateImagesResponse } from '../../services/ai.service';
-// FIX: Update AppTheme import to break circular dependency
+// AppTheme imported from UserContextService to avoid circular dependency with AppComponent
 import { AppTheme } from '../../services/user-context.service';
 
 @Component({

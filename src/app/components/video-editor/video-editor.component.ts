@@ -1,8 +1,6 @@
 import { Component, ChangeDetectionStrategy, signal, ElementRef, viewChild, OnDestroy, input, effect, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// FIX: Corrected import path for AiService. It was '../../../services/ai.service' which is incorrect.
 import { AiService, GenerateVideosOperation } from '../../services/ai.service';
-// FIX: Update AppTheme import to break circular dependency
 import { AppTheme } from '../../services/user-context.service';
 
 @Component({

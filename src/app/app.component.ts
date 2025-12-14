@@ -10,6 +10,7 @@ import { AudioVisualizerComponent } from './components/audio-visualizer/audio-vi
 import { PianoRollComponent } from './components/piano-roll/piano-roll.component';
 import { NetworkingComponent, ArtistProfile, MOCK_ARTISTS } from './components/networking/networking.component';
 import { ProfileEditorComponent } from './components/profile-editor/profile-editor.component';
+import { HubDashboardComponent } from './components/hub-dashboard/hub-dashboard.component';
 import { AiService } from './services/ai.service';
 // FIX: Import AppTheme and shared types from UserContextService to break circular dependency which caused injection errors.
 import { UserContextService, AppTheme, MainViewMode, Track, EqBand, Enhancements, DeckState, initialDeckState } from './services/user-context.service';
@@ -31,7 +32,7 @@ const THEMES: AppTheme[] = [
   standalone: true,
   templateUrl: './app.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, EqPanelComponent, MatrixBackgroundComponent, ChatbotComponent, ImageEditorComponent, VideoEditorComponent, AudioVisualizerComponent, PianoRollComponent, NetworkingComponent, ProfileEditorComponent],
+  imports: [CommonModule, EqPanelComponent, MatrixBackgroundComponent, ChatbotComponent, ImageEditorComponent, VideoEditorComponent, AudioVisualizerComponent, PianoRollComponent, NetworkingComponent, ProfileEditorComponent, HubDashboardComponent],
   host: {
     '(window:mousemove)': 'onScratch($event)', '(window:touchmove)': 'onScratch($event)',
     '(window:mouseup)': 'onScratchEnd()', '(window:touchend)': 'onScratchEnd()',
@@ -137,9 +138,9 @@ export class AppComponent implements OnDestroy {
     effect(() => { if (this.selectedArtistProfile()) this.showArtistDetailModal.set(true); });
 
     // FIX: These calls are now valid as userContext is correctly typed.
-    effect(() => this.userContext.setMainViewMode(this.mainViewMode()));
+    effect(() => this.userContext.setMainViewMode(this.mainViewMode()), { allowSignalWrites: true });
     // FIX: These calls are now valid as userContext is correctly typed.
-    effect(() => this.userContext.setTheme(this.currentTheme()));
+    effect(() => this.userContext.setTheme(this.currentTheme()), { allowSignalWrites: true });
 
     // Effects for Studio Tools (Mock Implementation)
     effect(() => {
@@ -277,11 +278,11 @@ export class AppComponent implements OnDestroy {
   }
 
   toggleMainViewMode(): void {
-    if (this.mainViewMode() === 'profile') {
+    if (this.mainViewMode() === 'profile' || this.mainViewMode() === 'gaming') {
       this.mainViewMode.set('player');
       return;
     }
-    const modes: Exclude<MainViewMode, 'profile'>[] = ['player', 'dj', 'piano-roll', 'image-editor', 'video-editor', 'networking'];
+    const modes: Exclude<MainViewMode, 'profile' | 'gaming'>[] = ['player', 'dj', 'piano-roll', 'image-editor', 'video-editor', 'networking'];
     const currentMode = this.mainViewMode() as (typeof modes)[number];
     const nextIndex = (modes.indexOf(currentMode) + 1) % modes.length;
     this.mainViewMode.set(modes[nextIndex]);
@@ -289,6 +290,10 @@ export class AppComponent implements OnDestroy {
 
   toggleChatbot(): void { this.showChatbot.update(s => !s); }
   toggleEqPanel(): void { this.showEqPanel.update(s => !s); }
+
+  enterHub(): void {
+    this.mainViewMode.set('gaming');
+  }
 
   handleChatbotCommand(command: { action: string; parameters: any; }): void {
     const { action, parameters } = command;

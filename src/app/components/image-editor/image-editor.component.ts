@@ -25,7 +25,6 @@ export class ImageEditorComponent {
   aspectRatio = signal<'1:1' | '3:4' | '4:3' | '9:16' | '16:9' | '2:3' | '3:2' | '21:9'>('1:1');
 
   private aiService = inject(AiService);
-  // FIX: A computed signal's value must be read by calling it as a function.
   isAiAvailable = computed(() => this.aiService.isAiAvailable());
 
   setAspectRatio(ratio: string) {

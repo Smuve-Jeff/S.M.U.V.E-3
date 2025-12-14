@@ -3,7 +3,7 @@
   <app-matrix-background></app-matrix-background>
 
   @if (mainViewMode() === 'gaming') {
-    <app-hub-dashboard [autoLaunchGameId]="gameToLaunch()"></app-hub-dashboard>
+    <app-hub-dashboard></app-hub-dashboard>
     <!-- Add a floating exit button for gaming mode since it covers the screen -->
     <button (click)="mainViewMode.set('player')" class="fixed bottom-4 right-4 z-[10000] p-2 bg-black border border-white text-white hover:bg-white hover:text-black font-mono">
       [ EXIT HUB ]

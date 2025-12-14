@@ -1,4 +1,5 @@
 import { Component, effect, input } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -58,14 +59,7 @@ export class HubDashboardComponent {
     }
   ];
 
-  constructor(private sanitizer: DomSanitizer) {
-    effect(() => {
-      const gameId = this.autoLaunchGameId();
-      if (gameId) {
-        this.launchSpecific(gameId);
-      }
-    });
-  }
+  constructor(private sanitizer: DomSanitizer) {}
 
   getGames() {
     if (this.activeTab === 'All') return this.games;

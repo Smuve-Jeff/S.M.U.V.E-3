@@ -174,7 +174,6 @@ export class AiService {
       this._genAI.set(genAIInstance);
 
       const createdChatInstance = genAIInstance.chats.create({
-        // FIX: Use approved model name
         model: 'gemini-2.5-flash',
         config: {
           systemInstruction: `You are S.M.U.V.E (Strategic Music Utility Virtual Enhancer).

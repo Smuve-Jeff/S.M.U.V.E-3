@@ -125,7 +125,6 @@ export class AppComponent implements OnDestroy {
   private destinationNode!: MediaStreamAudioDestinationNode;
   private vuIntervalId?: number;
   private aiService = inject(AiService);
-  // FIX: userContext is now correctly typed as UserContextService, fixing the errors on property access.
   private userContext = inject(UserContextService);
   private userProfileService = inject(UserProfileService); // Initialize profile service
 
@@ -136,9 +135,7 @@ export class AppComponent implements OnDestroy {
     effect(() => { if (this.mapLocationResult()) this.showMapResultsModal.set(true); });
     effect(() => { if (this.selectedArtistProfile()) this.showArtistDetailModal.set(true); });
 
-    // FIX: These calls are now valid as userContext is correctly typed.
     effect(() => this.userContext.setMainViewMode(this.mainViewMode()));
-    // FIX: These calls are now valid as userContext is correctly typed.
     effect(() => this.userContext.setTheme(this.currentTheme()));
 
     // Effects for Studio Tools (Mock Implementation)
@@ -321,7 +318,6 @@ export class AppComponent implements OnDestroy {
 
   handleImageGenerated(imageUrl: string): void {
     this.lastImageEditorImageUrl.set(imageUrl);
-    // FIX: This call is now valid as userContext is correctly typed.
     this.userContext.setLastImageUrl(imageUrl);
   }
 

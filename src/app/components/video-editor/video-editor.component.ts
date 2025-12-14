@@ -84,13 +84,13 @@ export class VideoEditorComponent implements OnDestroy {
         const data = this.imageForVideoGeneration()!.split(',')[1];
         operation = await this.aiService.genAI.models.generateVideos({
           // FIX: Use approved model name
-          model: 'veo-2.0-generate-001', prompt,
+          model: AiService.VIDEO_MODEL, prompt,
           image: { imageBytes: data, mimeType }, config,
         });
       } else {
         operation = await this.aiService.genAI.models.generateVideos({
           // FIX: Use approved model name
-          model: 'veo-2.0-generate-001', prompt, config,
+          model: AiService.VIDEO_MODEL, prompt, config,
         });
       }
 

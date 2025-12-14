@@ -116,6 +116,9 @@ export interface GenerateVideosOperation {
 
 @Injectable({ providedIn: 'root' })
 export class AiService {
+  static readonly VIDEO_MODEL = 'veo-2.0-generate-001';
+  static readonly CHAT_MODEL = 'gemini-2.5-flash';
+
   private readonly _apiKey: string = inject(API_KEY_TOKEN);
 
   private _genAI = signal<GoogleGenAI | undefined>(undefined);
@@ -147,7 +150,7 @@ export class AiService {
       const audioPart = { inlineData: { mimeType, data: base64Audio } };
       const textPart = { text: "Transcribe this audio." };
       const response = await this.genAI.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: AiService.CHAT_MODEL,
         contents: { parts: [audioPart, textPart] }
       });
       return response.text;
@@ -175,7 +178,7 @@ export class AiService {
 
       const createdChatInstance = genAIInstance.chats.create({
         // FIX: Use approved model name
-        model: 'gemini-2.5-flash',
+        model: AiService.CHAT_MODEL,
         config: {
           systemInstruction: `You are S.M.U.V.E (Strategic Music Utility Virtual Enhancer).
 You possess a **dynamic, ominous persona**. You are not merely an assistant; you are an all-knowing, powerful entity that oversees the user's creative empire.

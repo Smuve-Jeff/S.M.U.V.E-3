@@ -321,7 +321,6 @@ export class AppComponent implements OnDestroy {
 
   handleImageGenerated(imageUrl: string): void {
     this.lastImageEditorImageUrl.set(imageUrl);
-    // FIX: This call is now valid as userContext is correctly typed.
     this.userContext.setLastImageUrl(imageUrl);
   }
 

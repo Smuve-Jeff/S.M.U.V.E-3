@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AiService, GenerateContentResponse, Content, Type, Tool } from '../../services/ai.service';
 // FIX: Update AppTheme and Track imports to break circular dependency
-import { AppTheme, Track, UserContextService } from '../../services/user-context.service';
+import { AppTheme, Track, UserContextService, MainViewMode } from '../../services/user-context.service';
 import { UserProfileService } from '../../services/user-profile.service';
 
 // Type declarations for browser APIs
@@ -21,8 +21,6 @@ interface ChatMessage {
   urls?: { uri: string; title?: string }[];
   imageUrl?: string;
 }
-
-type MainViewMode = 'player' | 'dj' | 'piano-roll' | 'image-editor' | 'video-editor' | 'networking' | 'profile';
 
 @Component({
   selector: 'app-chatbot',

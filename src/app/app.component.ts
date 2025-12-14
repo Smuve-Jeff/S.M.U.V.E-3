@@ -12,7 +12,7 @@ import { NetworkingComponent, ArtistProfile, MOCK_ARTISTS } from './components/n
 import { ProfileEditorComponent } from './components/profile-editor/profile-editor.component';
 import { AiService } from './services/ai.service';
 // FIX: Import AppTheme and shared types from UserContextService to break circular dependency which caused injection errors.
-import { UserContextService, AppTheme, Track, EqBand, Enhancements, DeckState, initialDeckState } from './services/user-context.service';
+import { UserContextService, AppTheme, MainViewMode, Track, EqBand, Enhancements, DeckState, initialDeckState } from './services/user-context.service';
 import { UserProfileService } from './services/user-profile.service';
 
 declare global {
@@ -47,7 +47,7 @@ export class AppComponent implements OnDestroy {
   videoPlayerBRef = viewChild<ElementRef<HTMLVideoElement>>('videoPlayerB');
   fileInputRef = viewChild<ElementRef<HTMLInputElement>>('fileInput');
 
-  mainViewMode = signal<'player' | 'dj' | 'piano-roll' | 'image-editor' | 'video-editor' | 'networking' | 'profile'>('player');
+  mainViewMode = signal<MainViewMode>('player');
   showChatbot = signal(true);
 
   // --- Player State ---
@@ -281,7 +281,7 @@ export class AppComponent implements OnDestroy {
       this.mainViewMode.set('player');
       return;
     }
-    const modes: ('player' | 'dj' | 'piano-roll' | 'image-editor' | 'video-editor' | 'networking')[] = ['player', 'dj', 'piano-roll', 'image-editor', 'video-editor', 'networking'];
+    const modes: Exclude<MainViewMode, 'profile'>[] = ['player', 'dj', 'piano-roll', 'image-editor', 'video-editor', 'networking'];
     const currentMode = this.mainViewMode() as (typeof modes)[number];
     const nextIndex = (modes.indexOf(currentMode) + 1) % modes.length;
     this.mainViewMode.set(modes[nextIndex]);
